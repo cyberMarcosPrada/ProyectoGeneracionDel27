@@ -1,17 +1,19 @@
 :root {
-  color-scheme: light;
-  --color-pergamino: #f5f0e5;
-  --color-papel: #fffdf8;
-  --color-tinta: #28251f;
-  --color-tinta-suave: #625e55;
-  --color-acento-granate: #8c3040;
-  --color-acento-oscuro: #632331;
-  --color-oliva: #61705a;
-  --color-linea: #ded5c5;
-  --color-sombra: rgb(40 37 31 / 8%);
-  --fuente-editorial: Georgia, 'Times New Roman', serif;
-  --fuente-interfaz: 'Segoe UI', Tahoma, sans-serif;
-  --ancho-contenido: 76rem;
-  --radio-tarjeta: 0.35rem;
-  --espacio-seccion: clamp(3rem, 7vw, 6rem);
+    --primary-color: #1f2f46;
+    --primary-dark: #15202f;
+    --secondary-color: #b8862b;
+    --accent-color: #2f6f8f;
+    --bg-color: #f3f5f8;
+    --card-bg: #ffffff;
+    --text-color: #25303d;
+    --text-light: #6b7889;
+    --border-color: #dde3ea;
+    --danger-color: #c0392b;
+    --success-color: #2e8b57;
+    --border-radius: 12px;
+    --shadow-sm: 0 2px 8px rgba(31, 47, 70, 0.08);
+    --shadow-md: 0 10px 28px rgba(31, 47, 70, 0.14);
+    --font-title: Georgia, 'Times New Roman', serif;
+    --font-body: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    --transition: all 0.25s ease;
 }
