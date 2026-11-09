@@ -1,162 +1,68 @@
-.site-header {
-  position: relative;
-  overflow: hidden;
-  padding: clamp(2.5rem, 7vw, 6rem) max(1.25rem, calc((100vw - var(--ancho-contenido)) / 2));
-  background:
-    radial-gradient(ellipse at 86% 16%, rgb(255 255 255 / 13%), transparent 35%),
-    linear-gradient(120deg, #2e2a25, #4a2d32 62%, #713746);
-  color: #fffaf0;
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
-.site-header::after {
-  position: absolute;
-  right: -3rem;
-  bottom: -7rem;
-  width: 23rem;
-  height: 23rem;
-  border: 1px solid rgb(255 255 255 / 13%);
-  border-radius: 50%;
-  box-shadow: 0 0 0 2.5rem rgb(255 255 255 / 3%), 0 0 0 5rem rgb(255 255 255 / 2%);
-  content: '';
+.header {
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
+    color: #fff;
+    padding: 3rem 0 2rem;
+    text-align: center;
+    border-bottom: 4px solid var(--secondary-color);
 }
 
-.header-inner,
-.main-content,
-.site-footer {
-  width: min(100% - 2.5rem, var(--ancho-contenido));
-  margin-inline: auto;
+.header h1 {
+    color: #fff;
+    font-size: clamp(2rem, 5vw, 3rem);
+    letter-spacing: 0.5px;
 }
 
-.header-inner {
-  position: relative;
-  z-index: 1;
+.header .subtitle {
+    color: #c5d0de;
+    margin-top: 0.5rem;
+    font-size: 1.1rem;
 }
 
-.header-topline,
-.site-nav,
-.section-heading,
-.results-heading,
-.library-toolbar,
-.footer-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-}
-
-.brand-mark,
-.eyebrow {
-  color: #e8c89f;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-}
-
-.site-nav {
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  margin-top: 1.4rem;
-}
-
-.site-nav a {
-  color: #fffaf0;
-  font-size: 0.9rem;
-  text-decoration: none;
-}
-
-.site-title {
-  max-width: 52rem;
-  margin: clamp(2.5rem, 7vw, 5rem) 0 1rem;
-  font-family: var(--fuente-editorial);
-  font-size: clamp(2.7rem, 7vw, 5.6rem);
-  font-weight: 500;
-  letter-spacing: -0.045em;
-  line-height: 1.02;
-}
-
-.site-deck {
-  max-width: 42rem;
-  margin: 0;
-  color: #e9e1d5;
-  font-size: clamp(1rem, 2vw, 1.2rem);
+.main-nav {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: 1.75rem;
 }
 
 .main-content {
-  padding-block: 0 var(--espacio-seccion);
+    flex: 1;
+    padding: 2.5rem 20px;
 }
 
-.intro-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(15rem, 0.6fr);
-  gap: 2rem;
-  padding-block: 3rem;
-  border-bottom: 1px solid var(--color-linea);
+.tab-content {
+    display: none;
 }
 
-.intro-grid h2,
-.section-title,
-.section-heading h2 {
-  margin: 0;
-  font-family: var(--fuente-editorial);
-  font-size: clamp(1.8rem, 4vw, 2.65rem);
-  font-weight: 500;
-  line-height: 1.2;
+.tab-content.active {
+    display: block;
 }
 
-.intro-note {
-  padding-left: 1.25rem;
-  border-left: 2px solid var(--color-acento-granate);
-  color: var(--color-tinta-suave);
-  font-size: 0.95rem;
+.tab-content > h2,
+.results-section h2 {
+    font-size: 1.6rem;
+    margin-top: 2rem;
 }
 
-.intro-note strong {
-  display: block;
-  margin-bottom: 0.4rem;
-  color: var(--color-tinta);
-  font-family: var(--fuente-editorial);
-  font-size: 1.2rem;
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
 }
 
-.archive-section {
-  padding-top: var(--espacio-seccion);
-  scroll-margin-top: 1.5rem;
-}
-
-.section-heading {
-  align-items: flex-end;
-  margin-bottom: 1.5rem;
-}
-
-.section-heading p {
-  max-width: 35rem;
-  margin: 0.6rem 0 0;
-  color: var(--color-tinta-suave);
-}
-
-.site-footer {
-  padding-block: 1.5rem 2.5rem;
-  border-top: 1px solid var(--color-linea);
-  color: var(--color-tinta-suave);
-  font-size: 0.85rem;
-}
-
-@media (max-width: 700px) {
-  .header-topline,
-  .section-heading,
-  .results-heading,
-  .library-toolbar,
-  .footer-inner {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .intro-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .site-header::after {
-    right: -13rem;
-  }
+.footer {
+    background-color: var(--primary-dark);
+    color: #aebacb;
+    text-align: center;
+    padding: 1.5rem 0;
+    font-size: 0.9rem;
 }
