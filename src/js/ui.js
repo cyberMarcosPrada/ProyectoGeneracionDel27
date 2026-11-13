@@ -1,15 +1,11 @@
-export { obtenerElemento } from './ui/dom.js';
+export { createElement, clearContainer } from './ui/dom.js';
 export {
-  actualizarPestanaActiva,
-  mostrarFeedback,
-  establecerCarga,
+    showSpinner,
+    hideFeedback,
+    showAlert,
+    showToast,
+    showEmptyState
 } from './ui/feedback.js';
-export {
-  renderizarAutores,
-  renderizarPerfilAutor,
-} from './ui/authorCards.js';
-export { renderizarObras } from './ui/workCards.js';
-export {
-  renderizarBiblioteca,
-  renderizarBibliografia,
-} from './ui/library.js';
+export { initModal, openModal, closeModal } from './ui/modal.js';
+export { initSearchForm, getCurrentCategory } from './ui/searchForm.js';
+export { validateSearchParams } from './utils/validators.js';
