@@ -260,3 +260,77 @@
         padding: 1.5rem;
     }
 }
+
+
+
+/*Para que las validaciones y estados de alerta se vean correctamente*/
+
+
+/* Feedback: Spinner, Alertas, Toasts y Estado Vacío */
+.feedback-spinner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    color: var(--primary-color);
+}
+
+.loader {
+    border: 4px solid #e0e0e0;
+    border-top: 4px solid var(--secondary-color);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    animation: spin 0.8s linear infinite;
+    margin-bottom: 0.8rem;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.alert {
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    margin: 1rem 0;
+    font-weight: 500;
+}
+
+.alert-error {
+    background-color: #fdecea;
+    color: var(--danger-color);
+    border-left: 4px solid var(--danger-color);
+}
+
+.alert-success {
+    background-color: #eafaf1;
+    color: #1e8449;
+    border-left: 4px solid var(--success-color);
+}
+
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--primary-color);
+    color: #fff;
+    padding: 0.9rem 1.4rem;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    z-index: 2000;
+    transition: opacity 0.3s ease;
+}
+
+.toast-success { background-color: #27ae60; }
+.toast-error { background-color: var(--danger-color); }
+.toast.fade-out { opacity: 0; }
+
+.empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem 1rem;
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    color: var(--text-light);
+    font-size: 1.1rem;
+}
