@@ -1,12 +1,15 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { AUTORES_27, FUENTES_BIBLIOGRAFICAS } from '../src/data/autores27.js';
-import { buscarAutoresController } from '../src/js/controllers/authorsController.js';
-import { buscarObrasController } from '../src/js/controllers/worksController.js';
 import {
   normalizarAutorOpenLibrary,
   normalizarObraOpenLibrary,
-} from '../src/js/utils/models.js';
+} from '../src/js/api.js';
+import {
+  buscarAutoresController,
+  buscarObrasController,
+  validarFiltros,
+} from '../src/js/app.js';
 
 test('el catálogo local mantiene perfiles completos y bibliografía seleccionada', () => {
   assert.equal(AUTORES_27.length, 14);
@@ -66,4 +69,52 @@ test('la búsqueda local filtra obras por autor, género y rango cronológico', 
       && obra.año <= 1945
       && obra.genero === 'Poesía'
   )));
+});
+
+test('acepta filtros válidos de obras con límites cronológicos', () => {
+  const resultado = validarFiltros({
+    autor: ' Luis Cernuda ',
+    genero: 'Poesía',
+    idioma: 'es',
+    desde: '1930',
+    hasta: '1945',
+  }, 'obras');
+
+  assert.equal(resultado.valido, true);
+  assert.equal(resultado.filtros.autor, 'Luis Cernuda');
+  assert.equal(resultado.filtros.desde, 1930);
+});
+
+test('rechaza rangos invertidos y consultas de obras sin criterios', () => {
+  const rangoInvalido = validarFiltros({
+    autor: '',
+    genero: '',
+    idioma: 'es',
+    desde: '1945',
+    hasta: '1930',
+  }, 'obras');
+  const consultaVacia = validarFiltros({
+    autor: '',
+    genero: '',
+    idioma: 'es',
+    desde: '',
+    hasta: '',
+  }, 'obras');
+
+  assert.equal(rangoInvalido.valido, false);
+  assert.ok(rangoInvalido.errores.some((error) => error.includes('posterior')));
+  assert.equal(consultaVacia.valido, false);
+});
+
+test('rechaza idioma y categoría fuera del contrato', () => {
+  const resultado = validarFiltros({
+    autor: 'Lorca',
+    genero: '',
+    idioma: 'xx',
+    desde: '',
+    hasta: '',
+  }, 'invalida');
+
+  assert.equal(resultado.valido, false);
+  assert.equal(resultado.errores.length, 2);
 });

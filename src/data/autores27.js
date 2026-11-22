@@ -2,7 +2,7 @@
  * Catálogo editorial local del archivo. Las referencias enlazan a instituciones
  * y catálogos públicos para que los datos biográficos puedan contrastarse.
  */
-export const AUTORES_27 = Object.freeze([
+export const AUTORES_27 = [
   {
     id: 'federico-garcia-lorca',
     nombre: 'Federico García Lorca',
@@ -245,9 +245,9 @@ export const AUTORES_27 = Object.freeze([
     ],
     fuentes: ['Museo Reina Sofía', 'BNE', 'Museo de Belas Artes da Coruña'],
   },
-]);
+];
 
-export const FUENTES_BIBLIOGRAFICAS = Object.freeze([
+export const FUENTES_BIBLIOGRAFICAS = [
   {
     nombre: 'Biblioteca Nacional de España (BNE)',
     tipo: 'Catálogo bibliográfico',
@@ -290,4 +290,4 @@ export const FUENTES_BIBLIOGRAFICAS = Object.freeze([
     url: 'https://www.nobelprize.org/prizes/literature/1977/aleixandre/biographical/',
     descripcion: 'Biografía y documentación oficial del Premio Nobel de Literatura de 1977.',
   },
-]);
+];

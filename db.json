@@ -1,32 +1,24 @@
 {
   "favoritos": [
     {
-      "id": 1,
-      "titulo": "Romancero gitano",
+      "obraId": "federico-garcia-lorca-0",
+      "titulo": "Libro de poemas",
       "autor": "Federico García Lorca",
       "categoria": "Poesía",
-      "fechaAgregado": "2026-11-06"
+      "año": "1921",
+      "descripcion": "Primer libro publicado, de tono modernista y ecos de la infancia y la naturaleza.",
+      "fechaAgregado": "2026-11-13",
+      "id": 5
     },
     {
-      "id": 2,
-      "titulo": "Marinero en tierra",
-      "autor": "Rafael Alberti",
+      "obraId": "emilio-prados-0",
+      "titulo": "Tiempo",
+      "autor": "Emilio Prados",
       "categoria": "Poesía",
-      "fechaAgregado": "2026-11-06"
-    },
-    {
-      "id": 3,
-      "titulo": "La realidad y el deseo",
-      "autor": "Luis Cernuda",
-      "categoria": "Poesía",
-      "fechaAgregado": "2026-11-06"
-    },
-    {
-      "id": 4,
-      "titulo": "Poeta en Nueva York",
-      "autor": "Federico García Lorca",
-      "categoria": "Poesía",
-      "fechaAgregado": "2026-11-06"
+      "año": "1925",
+      "descripcion": "Libro temprano de sensibilidad musical y contemplativa.",
+      "fechaAgregado": "2026-11-13",
+      "id": 6
     }
   ],
   "notas": [
@@ -50,6 +42,27 @@
       "tituloObra": "La realidad y el deseo",
       "textoNota": "El título resume una tensión central de la poesía de Cernuda: el conflicto entre la aspiración personal y el mundo real.",
       "fecha": "2026-11-06"
+    },
+    {
+      "obraId": 2,
+      "tituloObra": "Marinero en tierra",
+      "textoNota": "rnmvo`kemov",
+      "fecha": "2026-11-13",
+      "id": 4
+    },
+    {
+      "obraId": 4,
+      "tituloObra": "Poeta en Nueva York",
+      "textoNota": "me flipa",
+      "fecha": "2026-11-13",
+      "id": 5
+    },
+    {
+      "obraId": 6,
+      "tituloObra": "Tiempo",
+      "textoNota": "polla ème",
+      "fecha": "2026-11-13",
+      "id": 6
     }
   ]
 }

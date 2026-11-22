@@ -1,78 +1,72 @@
-import { customFetch } from './http.js';
-const API_URL = 'https://openlibrary.org';
-const LIMITE_RESULTADOS = 30;
+import { solicitarJSON } from './http.js';
 
-function comprobarResultados(datos) {
-    if (!Array.isArray(datos?.docs)) {
-        throw new Error('Los resultados no son válidos.');
-    }
+const OPEN_LIBRARY_URL = 'https://openlibrary.org';
+const LIMIT = 30;
 
-    return datos.docs;
+function requireDocs(payload, endpoint) {
+  if (!payload || !Array.isArray(payload.docs)) {
+    throw new TypeError(`La respuesta de Open Library no contiene resultados válidos (${endpoint}).`);
+  }
+  return payload.docs;
 }
 
 export async function buscarAutores(nombre) {
-    const parametros = new URLSearchParams({
-        q: nombre,
-        limit: LIMITE_RESULTADOS
-    });
-
-    const url = `${API_URL}/search/authors.json?${parametros}`;
-
-    try {
-        const datos = await customFetch(url);
-        return comprobarResultados(datos);
-    } catch (error) {
-        throw new Error('Error al buscar autores: ' + error.message);
-    }
+  const query = new URLSearchParams({ q: nombre, limit: String(LIMIT) });
+  const endpoint = `${OPEN_LIBRARY_URL}/search/authors.json?${query}`;
+  try {
+    return requireDocs(await solicitarJSON(endpoint), endpoint);
+  } catch (error) {
+    throw new Error(`No se pudo buscar autores en Open Library: ${error.message}`);
+  }
 }
 
 export async function buscarObras(filtros) {
-    const condiciones = [];
+  const parts = [];
+  if (filtros.autor) parts.push(`author:"${filtros.autor.replace(/["\\]/g, ' ')}"`);
+  if (filtros.genero) parts.push(`subject:"${filtros.genero.replace(/["\\]/g, ' ')}"`);
+  if (filtros.desde !== null && filtros.hasta !== null) {
+    parts.push(`first_publish_year:[${filtros.desde} TO ${filtros.hasta}]`);
+  } else if (filtros.desde !== null) {
+    parts.push(`first_publish_year:[${filtros.desde} TO *]`);
+  } else if (filtros.hasta !== null) {
+    parts.push(`first_publish_year:[* TO ${filtros.hasta}]`);
+  }
 
-    if (filtros.autor) {
-        condiciones.push(`author:"${filtros.autor}"`);
-    }
-
-    if (filtros.genero) {
-        condiciones.push(`subject:"${filtros.genero}"`);
-    }
-
-    if (filtros.desde !== null && filtros.hasta !== null) {
-        condiciones.push(`first_publish_year:[${filtros.desde} TO ${filtros.hasta}]`);
-    } else if (filtros.desde !== null) {
-        condiciones.push(`first_publish_year:[${filtros.desde} TO *]`);
-    } else if (filtros.hasta !== null) {
-        condiciones.push(`first_publish_year:[* TO ${filtros.hasta}]`);
-    }
-
-    const parametros = new URLSearchParams({
-        q: condiciones.join(' AND '),
-        language: filtros.idioma === 'es' ? 'spa' : filtros.idioma,
-        limit: LIMITE_RESULTADOS
-    });
-
-    const url = `${API_URL}/search.json?${parametros}`;
-
-    try {
-        const datos = await customFetch(url);
-        return comprobarResultados(datos);
-    } catch (error) {
-        throw new Error('Error al buscar obras: ' + error.message);
-    }
+  const query = new URLSearchParams({
+    q: parts.join(' AND '),
+    language: filtros.idioma === 'es' ? 'spa' : filtros.idioma,
+    limit: String(LIMIT),
+  });
+  const endpoint = `${OPEN_LIBRARY_URL}/search.json?${query}`;
+  try {
+    return requireDocs(await solicitarJSON(endpoint), endpoint);
+  } catch (error) {
+    throw new Error(`No se pudieron buscar obras en Open Library: ${error.message}`);
+  }
 }
 
 export async function obtenerObrasAutor(claveAutor) {
-    const url = `${API_URL}${claveAutor}/works.json?limit=${LIMITE_RESULTADOS}`;
+  if (typeof claveAutor !== 'string' || claveAutor.trim() === '') {
+    throw new TypeError('La clave del autor no tiene un formato válido.');
+  }
 
-    try {
-        const datos = await customFetch(url);
+  const claveCompleta = claveAutor.startsWith('/authors/')
+    ? claveAutor
+    : `/authors/${claveAutor}`;
+  if (!/^\/authors\/[^/]+$/.test(claveCompleta)) {
+    throw new TypeError('La clave del autor no tiene un formato válido.');
+  }
 
-        if (!Array.isArray(datos?.entries)) {
-            throw new Error('La lista de obras no es válida.');
-        }
-
-        return datos.entries;
-    } catch (error) {
-        throw new Error('Error al obtener las obras del autor: ' + error.message);
+  const claveCodificada = claveCompleta.split('/').map(encodeURIComponent).join('/');
+  const query = new URLSearchParams({ limit: String(LIMIT) });
+  const endpoint = `${OPEN_LIBRARY_URL}${claveCodificada}/works.json?${query}`;
+  try {
+    const payload = await solicitarJSON(endpoint);
+    if (!payload || !Array.isArray(payload.entries)) {
+      throw new TypeError('La respuesta no contiene una lista de obras válida.');
     }
+    return payload.entries;
+  } catch (error) {
+    throw new Error(`No se pudieron cargar las obras del autor: ${error.message}`);
+  }
 }

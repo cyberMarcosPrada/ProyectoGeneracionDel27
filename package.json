@@ -5,6 +5,7 @@
   "type": "module",
   "description": "Archivo Histórico y Literario de la Generación del 27",
   "scripts": {
+    "start": "vite --host 127.0.0.1",
     "dev": "vite --host 127.0.0.1",
     "build": "vite build",
     "api": "json-server --watch db.json --port 3000",
